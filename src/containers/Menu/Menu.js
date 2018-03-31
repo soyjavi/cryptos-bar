@@ -1,15 +1,19 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { Consumer } from '../../context';
-import { MenuItem } from '../../components';
+import { MenuItem, MenuItemCoin } from '../../components';
 import styles from './Menu.style';
 
 const Menu = () => (
   <Consumer>
-    { ({ dataSource = [], onQuit }) => (
+    { ({ coinList = [], onQuit }) => (
       <View style={styles.container}>
-        { dataSource.map(coin => <MenuItem key={coin} title={coin} checked />) }
+        <ScrollView style={styles.coinList}>
+          { coinList.map(data => <MenuItemCoin key={data.id} dataSource={data} />) }
+        </ScrollView>
+        <MenuItem title="Settings" separator />
+        <MenuItem title="About" separator />
         <MenuItem title="Quit" onPress={onQuit} />
       </View>
     )}

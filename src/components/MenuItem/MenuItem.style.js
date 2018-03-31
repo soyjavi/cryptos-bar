@@ -1,16 +1,15 @@
 import { StyleSheet } from 'react-native';
 
+import { C } from '../../common';
+
+const { STYLE: { MENU_ITEM_ROW, OFFSET } } = C;
+
 export default StyleSheet.create({
 
-  container: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-  },
+  container: MENU_ITEM_ROW,
 
   text: {
     color: 'white',
-    fontFamily: "'IBM Plex Mono', monospace;",
-    // fontWeight: 'bold',
-    fontSize: 14,
+    paddingLeft: OFFSET,
   },
 });
