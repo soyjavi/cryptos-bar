@@ -11,12 +11,12 @@ class ProviderEvents extends PureComponent {
   }
 
   render() {
-    const value = {
-      onQuit: remote.app.quit(),
+    const events = {
+      onQuit: () => remote.app.quit(),
     };
 
     return (
-      <Provider value={{ ...this.state, ...value }}>
+      <Provider value={{ ...this.state, ...events }}>
         { this.props.children }
       </Provider>
     );
