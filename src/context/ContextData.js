@@ -20,9 +20,26 @@ class ProviderData extends PureComponent {
     });
   }
 
+  _onRemoveFavorite = (symbol) => {
+    this.setState({
+      favorites: this.state.favorites.filter(favorite => favorite !== symbol),
+    });
+  }
+
+  _onAddFavorite = (symbol) => {
+    this.setState({
+      favorites: [...this.state.favorites, symbol],
+    });
+  }
+
   render() {
+    const events = {
+      onAddFavorite: this._onAddFavorite,
+      onRemoveFavorite: this._onRemoveFavorite,
+    };
+
     return (
-      <Provider value={{ ...this.state }}>
+      <Provider value={{ ...this.state, ...events }}>
         { this.props.children }
       </Provider>
     );

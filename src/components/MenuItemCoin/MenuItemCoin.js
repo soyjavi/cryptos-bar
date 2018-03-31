@@ -10,11 +10,10 @@ const MenuItem = ({
   dataSource: {
     name, percent_change_1h: change, price_usd: price, symbol,
   },
-  onPress,
 }) => (
   <Consumer>
-    { ({ favorites = [] }) => (
-      <TouchableOpacity onPress={onPress}>
+    { ({ favorites = [], onAddFavorite, onRemoveFavorite }) => (
+      <TouchableOpacity onPress={() => {favorites.includes(symbol) ? onRemoveFavorite(symbol) : onAddFavorite(symbol)}>
         <View style={styles.container}>
           <Text style={[styles.text, styles.check]}>
             { favorites.includes(symbol) ? '✔' : '' }
