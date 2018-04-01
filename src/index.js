@@ -1,18 +1,23 @@
 import { app, BrowserWindow, Tray } from 'electron';
+import reload from 'electron-reload';
 import path from 'path';
 import url from 'url';
 
 import { C } from './common';
 
-const { STYLE: { MAIN_WINDOW } } = C;
-
+const { ENV: { DEVELOPMENT }, STYLE: { MAIN_WINDOW } } = C;
 let mainWindow;
 let tray;
 
+if (DEVELOPMENT) reload(__dirname);
 app.setName(C.APP_NAME);
 app.dock.hide();
 
 app.on('ready', () => {
+  // Create tray
+  tray = new Tray(path.resolve(process.cwd(), 'public', 'assets', 'trayTemplate.png'));
+  tray.setTitle('Wait a moment...');
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     frame: false,
@@ -29,34 +34,17 @@ app.on('ready', () => {
     slashes: true,
   }));
 
-  // Create tray
-  tray = new Tray(path.resolve(process.cwd(), 'public', 'assets', 'trayIcon.png'));
-  tray.setTitle('Wait a moment...');
+  if (DEVELOPMENT) {
+    mainWindow.on('ready-to-show', () => {
+      tray.destroy();
+      tray = new Tray(path.resolve(process.cwd(), 'public', 'assets', 'trayTemplate.png'));
+      global.shared = { mainWindow, tray };
+    });
 
-  tray.on('click', () => {
-    if (mainWindow.isVisible()) {
-      tray.setHighlightMode('never');
-      mainWindow.hide();
-    } else {
-      const { x, y } = tray.getBounds();
-      tray.setHighlightMode('always');
-      mainWindow.setPosition(x, y);
-      mainWindow.show();
-    }
-  });
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
+  }
 
-  app.on('browser-window-blur', () => {
-    tray.setHighlightMode('never');
-    mainWindow.hide();
-  });
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools({ mode: 'detach' });
-
-  global.shared = {
-    mainWindow,
-    tray,
-  };
+  global.shared = { mainWindow, tray };
 });
 
 app.on('browser-window-blur', () => {

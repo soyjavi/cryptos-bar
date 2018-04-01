@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "soyjavi/cryptos-bar",
   "scripts": {
-    "start": "electron -r babel-register ./src/index",
+    "start": "cross-env NODE_ENV=development electron -r babel-register ./src/index",
     "lint": "eslint src/**"
   },
   "dependencies": {
@@ -22,7 +22,9 @@
     "react-native-web": "^0.5.3"
   },
   "devDependencies": {
+    "cross-env": "^5.1.4",
     "electron": "^1.8.4",
+    "electron-reload": "^1.2.2",
     "eslint": "^4.19.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
