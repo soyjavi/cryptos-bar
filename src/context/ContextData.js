@@ -1,4 +1,4 @@
-import { node } from 'prop-types';
+import { arrayOf, string, func, node } from 'prop-types';
 import React, { PureComponent, createContext } from 'react';
 import io from 'socket.io-client';
 
@@ -8,12 +8,10 @@ const { TREND: { DOWN, UP } } = C;
 const Context = createContext('data');
 const { Provider, Consumer: ConsumerData } = Context;
 
-// const parseC
-
 class ProviderData extends PureComponent {
   constructor(props) {
     super(props);
-    const { favorites = ['BTC', 'ETH', 'LTC', 'XMR'] } = props;
+    const { favorites } = props;
 
     const socket = io('https://streamer.cryptocompare.com/');
     socket.on('m', this._onSocketMessage);
@@ -68,11 +66,19 @@ class ProviderData extends PureComponent {
   }
 
   _favoriteRemove = (symbol) => {
-    this.setState({ favorites: this.state.favorites.filter(favorite => favorite !== symbol) });
+    const { props: { hydrate } } = this;
+    const favorites = this.state.favorites.filter(favorite => favorite !== symbol);
+
+    hydrate({ favorites });
+    this.setState({ favorites });
   }
 
   _favoriteAdd = (symbol) => {
-    this.setState({ favorites: [...this.state.favorites, symbol] });
+    const { props: { hydrate } } = this;
+    const favorites = [...this.state.favorites, symbol];
+
+    hydrate({ favorites });
+    this.setState({ favorites });
   }
 
   render() {
@@ -91,10 +97,14 @@ class ProviderData extends PureComponent {
 
 ProviderData.propTypes = {
   children: node,
+  favorites: arrayOf(string),
+  hydrate: func,
 };
 
 ProviderData.defaultProps = {
   children: undefined,
+  favorites: ['BTC', 'ETH', 'LTC', 'XMR'],
+  hydrate() {},
 };
 
 export { ConsumerData, ProviderData };

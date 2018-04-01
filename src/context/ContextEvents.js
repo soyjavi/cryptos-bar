@@ -2,7 +2,7 @@ import { remote } from 'electron';
 import { node } from 'prop-types';
 import React, { PureComponent, createContext } from 'react';
 
-const Context = createContext();
+const Context = createContext('events');
 const { Provider, Consumer: ConsumerEvents } = Context;
 
 class ProviderEvents extends PureComponent {

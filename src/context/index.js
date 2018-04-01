@@ -2,6 +2,7 @@ import { func, node } from 'prop-types';
 import React from 'react';
 import { ConsumerData, ProviderData } from './ContextData';
 import { ConsumerEvents, ProviderEvents } from './ContextEvents';
+import { ConsumerPersist, ProviderPersist } from './ContextPersist';
 
 const Consumer = ({ children }) => (
   <ConsumerData>
@@ -18,11 +19,17 @@ Consumer.propTypes = {
 };
 
 const Provider = ({ children }) => (
-  <ProviderData>
-    <ProviderEvents>
-      { children }
-    </ProviderEvents>
-  </ProviderData>
+  <ProviderPersist>
+    <ConsumerPersist>
+      { ({ favorites, hydrate }) => (
+        <ProviderData favorites={favorites} hydrate={hydrate}>
+          <ProviderEvents>
+            { children }
+          </ProviderEvents>
+        </ProviderData>
+      )}
+    </ConsumerPersist>
+  </ProviderPersist>
 );
 
 Provider.propTypes = {
