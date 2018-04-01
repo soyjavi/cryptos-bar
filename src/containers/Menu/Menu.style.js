@@ -11,6 +11,15 @@ export default StyleSheet.create({
   },
 
   coinList: {
-    maxHeight: MAIN_WINDOW.HEIGHT - 80,
+    maxHeight: MAIN_WINDOW.HEIGHT - (UNIT * 3.6),
+  },
+
+  menuOptions: {
+    borderTopColor: 'rgba(255,255,255,0.2)',
+    borderTopWidth: 1,
+    alignSelf: 'flex-end',
+    marginTop: UNIT / 2,
+    paddingTop: UNIT / 2,
+    width: '100%',
   },
 });

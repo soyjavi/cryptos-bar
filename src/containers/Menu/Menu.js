@@ -12,9 +12,9 @@ const Menu = () => (
         <ScrollView style={styles.coinList}>
           { coinList.map(data => <MenuItemCoin key={data.id} dataSource={data} />) }
         </ScrollView>
-        <MenuItem title="Settings" separator />
-        <MenuItem title="About" separator />
-        <MenuItem title="Quit" onPress={onQuit} />
+        <View style={styles.menuOptions}>
+          <MenuItem title="Quit" onPress={onQuit} />
+        </View>
       </View>
     )}
   </Consumer>
