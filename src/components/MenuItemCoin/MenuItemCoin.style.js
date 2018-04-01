@@ -8,6 +8,8 @@ export default StyleSheet.create({
 
   container: MENU_ITEM_ROW,
 
+
+
   text: {
     color: 'white',
     fontFamily: "'IBM Plex Mono', monospace;",
@@ -30,11 +32,11 @@ export default StyleSheet.create({
     alignSelf: 'flex-end',
   },
 
-  green: {
-    color: 'lightgreen',
+  up: {
+    color: '#AED581',
   },
 
-  red: {
-    color: 'red',
+  down: {
+    color: '#E57373',
   },
 });

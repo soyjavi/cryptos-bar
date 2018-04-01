@@ -8,19 +8,19 @@ import styles from './MenuItemCoin.style';
 
 const MenuItem = ({
   dataSource: {
-    name, percent_change_1h: change, price_usd: price, symbol,
+    name, trend, price, symbol,
   },
 }) => (
   <Consumer>
-    { ({ favorites = [], onAddFavorite, onRemoveFavorite }) => (
-      <TouchableOpacity onPress={() => {favorites.includes(symbol) ? onRemoveFavorite(symbol) : onAddFavorite(symbol)}>
+    { ({ favorites = [], favoriteAdd, favoriteRemove }) => (
+      <TouchableOpacity onPress={() => favorites.includes(symbol) ? favoriteRemove(symbol) : favoriteAdd(symbol)}>
         <View style={styles.container}>
           <Text style={[styles.text, styles.check]}>
             { favorites.includes(symbol) ? '✔' : '' }
           </Text>
           <Text style={[styles.text, styles.symbol]}>{symbol}</Text>
           <Text style={[styles.text, styles.name]}>{name}</Text>
-          <Text style={[styles.text, styles.price, styles[change > 0 ? 'green' : 'red']]}>
+          <Text style={[styles.text, styles.price, styles[trend]]}>
             {formatPrice(price)}
           </Text>
         </View>

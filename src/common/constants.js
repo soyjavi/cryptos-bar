@@ -12,7 +12,7 @@ export default {
     UNIT,
     OFFSET: UNIT * 1.6,
     MAIN_WINDOW: {
-      HEIGHT: 500,
+      HEIGHT: 464,
       WIDTH: 266,
     },
     MENU_ITEM_ROW: {
@@ -30,5 +30,10 @@ export default {
     ETH: 'Ξ',
     LTC: 'Ł',
     XMR: 'ɱ',
+  },
+
+  TREND: {
+    UP: 'up',
+    DOWN: 'down',
   },
 };
