@@ -11,10 +11,22 @@ class MenuItem extends PureComponent {
     hover: false,
   }
 
+  _onPress = ({ favorites, favoriteAdd, favoriteRemove }) => {
+    const { props: { dataSource: { symbol } = {}, onPress } } = this;
+
+    if (onPress) onPress();
+    else favorites.includes(symbol) ? favoriteRemove(symbol) : favoriteAdd(symbol); // eslint-disable-line
+  }
+
+  _onToggleHover = () => {
+    this.setState({ hover: !this.state.hover });
+  }
+
   render() {
     const {
+      _onPress, _onToggleHover,
       props: {
-        onPress, title, dataSource: {
+        title, dataSource: {
           symbol, name, trend, price,
         } = {},
       },
@@ -25,11 +37,11 @@ class MenuItem extends PureComponent {
 
     return (
       <Consumer>
-        { ({ favorites = [], favoriteAdd, favoriteRemove }) => (
+        { ({ favorites = [], ...consumer }) => (
           <TouchableOpacity
-            onMouseEnter={() => this.setState({ hover: true })}
-            onMouseLeave={() => this.setState({ hover: false })}
-            onPress={() => onPress}
+            onMouseEnter={_onToggleHover}
+            onMouseLeave={_onToggleHover}
+            onPress={() => _onPress({ favorites, ...consumer })}
             style={[styles.row, styles.container, hover && styles.hover]}
           >
             { title && <Text style={[styleText, styles.title]}>{title}</Text> }
