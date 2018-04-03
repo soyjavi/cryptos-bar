@@ -32,9 +32,9 @@ class Tray extends React.PureComponent {
   }
 
   _changeTitle = ({ coinList = [], favorites = [] }) => {
-    if (coinList.length === 0) return;
-    let title = '';
+    if (coinList.length === 0 || favorites.length === 0) return;
 
+    let title = '';
     favorites.forEach((favorite) => {
       const coin = coinList.find(({ symbol }) => symbol === favorite);
       if (coin) title += `${SYMBOL[favorite] || `${favorite} `}${formatPrice(coin.price)}  `;
