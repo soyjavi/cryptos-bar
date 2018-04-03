@@ -15,14 +15,6 @@ export default {
       HEIGHT: 464,
       WIDTH: 266,
     },
-    MENU_ITEM_ROW: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingHorizontal: UNIT * 0.8,
-      paddingVertical: UNIT * 0.3,
-      width: '100%',
-    },
   },
 
   SYMBOL: {

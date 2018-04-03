@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { Consumer } from '../../context';
-import { MenuItem, MenuItemCoin } from '../../components';
+import { MenuItem } from '../../components';
 import styles from './Menu.style';
 
 const Menu = () => (
@@ -10,7 +10,7 @@ const Menu = () => (
     { ({ coinList = [], onQuit }) => (
       <View style={styles.container}>
         <ScrollView style={styles.coinList}>
-          { coinList.map(data => <MenuItemCoin key={data.id} dataSource={data} />) }
+          { coinList.map(data => <MenuItem key={data.id} dataSource={data} />)}
         </ScrollView>
         <View style={styles.menuOptions}>
           <MenuItem title="Quit" onPress={onQuit} />
