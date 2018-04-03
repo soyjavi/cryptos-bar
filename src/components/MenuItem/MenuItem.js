@@ -1,4 +1,4 @@
-import { func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -26,14 +26,14 @@ class MenuItem extends PureComponent {
     const {
       _onPress, _onToggleHover,
       props: {
-        title, dataSource: {
+        checked, title, dataSource: {
           symbol, name, trend, price,
         } = {},
       },
       state: { hover },
     } = this;
 
-    const styleText = StyleSheet.flatten([styles.text, hover && styles.textHover]);
+    const text = StyleSheet.flatten([styles.text, hover && styles.textHover]);
 
     return (
       <Consumer>
@@ -44,15 +44,15 @@ class MenuItem extends PureComponent {
             onPress={() => _onPress({ favorites, ...consumer })}
             style={[styles.row, styles.container, hover && styles.hover]}
           >
-            { title && <Text style={[styleText, styles.title]}>{title}</Text> }
+            <Text style={[text, styles.monospace, styles.check]}>
+              { checked || favorites.includes(symbol) ? '✔' : '' }
+            </Text>
+            { title && <Text style={text}>{title}</Text> }
             { symbol &&
               <View style={styles.row}>
-                <Text style={[styleText, styles.monospace, styles.check]}>
-                  { favorites.includes(symbol) ? '✔' : '' }
-                </Text>
-                <Text style={[styleText, styles.monospace, styles.symbol]}>{symbol}</Text>
-                <Text style={[styleText, styles.monospace, styles.name]}>{name}</Text>
-                <Text style={[styleText, styles.monospace, styles.price, !hover && styles[trend]]}>
+                <Text style={[text, styles.monospace, styles.symbol]}>{symbol}</Text>
+                <Text style={[text, styles.monospace, styles.name]}>{name}</Text>
+                <Text style={[text, styles.monospace, styles.price, !hover && styles[trend]]}>
                   {formatPrice(price)}
                 </Text>
               </View> }
@@ -64,12 +64,14 @@ class MenuItem extends PureComponent {
 }
 
 MenuItem.propTypes = {
+  checked: bool,
   dataSource: shape(SHAPE.COIN),
   onPress: func,
   title: string,
 };
 
 MenuItem.defaultProps = {
+  checked: false,
   dataSource: undefined,
   onPress: undefined,
   title: undefined,

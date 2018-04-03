@@ -2,20 +2,21 @@ import { StyleSheet } from 'react-native';
 
 import { C } from '../../common';
 
-const { STYLE: { OFFSET, UNIT } } = C;
+const { STYLE: { UNIT } } = C;
 
 export default StyleSheet.create({
 
   container: {
     paddingHorizontal: UNIT * 0.8,
     paddingVertical: UNIT * 0.3,
+    width: '100%',
   },
 
   row: {
     display: 'flex',
     flexDirection: 'row',
-    width: '100%',
     alignItems: 'center',
+    flex: 1,
   },
 
   hover: {
@@ -25,10 +26,7 @@ export default StyleSheet.create({
 
   text: {
     color: 'white',
-  },
-
-  title: {
-    paddingLeft: OFFSET,
+    userSelect: 'none',
   },
 
   textHover: {
@@ -42,7 +40,8 @@ export default StyleSheet.create({
   },
 
   check: {
-    width: OFFSET,
+    width: UNIT,
+    marginRight: UNIT * 0.8,
   },
 
   symbol: {
